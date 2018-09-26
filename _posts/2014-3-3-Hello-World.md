@@ -1,7 +1,11 @@
 ---
 layout: post
-title: My blog works!
+title: My first week at Metis!
 ---
+
+My first week at Metis is behind me. Our cohort hit the ground running by jumping straight in to our first project, Benson.
+
+After splitting in to groups of four, we were tasked with making recommendations to a client who wanted to know the best subway stations to canvas for an upcoming Gala.
 
 Next you can update your site name, avatar and other options using the _config.yml file in the root of your repository (shown below).
 
