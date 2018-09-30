@@ -11,10 +11,20 @@ Our first thoughts were to find the subway stations closest to tech companies wi
 * The median daily traffic of a station
 
 # Classifying the wealth of a station
-After sifting through some lengthy JSON objects courtesy of the Google Maps API and utilizing our collective Google-fu to find NYC income data by zipcode, we had data on how many people fell in to each tax bracket within the zipcode of each station. The mathematician in me wanted to create a fancy "income score" wherein each tax bracket was weighted differently, but, being stretched for time, the pragmatist in me won out -- we went with a simple count of high income people in each zipcode. Next we had to decide how to use this metric to classify a station as "high income" or not. To do this we started at one standard deviation above the median number of high income people, and moved up and down from there to gauge the sensitivity of how many stations met or did not meet this criteria as we changed it.
+After sifting through some lengthy JSON objects courtesy of the Google Maps API and utilizing our collective Google-fu to find NYC income data by zipcode, we had data on how many people fell in to each tax bracket within the zipcode of each station. The mathematician in me wanted to create a fancy "income score" wherein each tax bracket was weighted differently, but, being stretched for time, the pragmatist in me won out -- we went with a simple count of high income people in each zipcode. Next we had to decide how to use this metric to classify a station as "high income" or not. To do this we started at one standard deviation above the median number of high income people, and moved up and down from there to gauge the sensitivity of how many stations met or did not meet this criteria as we changed it. Our final income filter required that a station have eight thousand or more high income residents living nearby, which cuts out seventy nine percent of stations.
 
 # Determining if a station is trafficed by commuters or tourists
 The Mass Transit Authority (MTA) of New York provides down-to-the-turnstile data every four hours. If you're reading this post close to an hour that's a multiple of four, each subway turnstile in NYC is about to faithfully report its most recent traffic to the MTA. It's this granularity that allowed us to distinguish between weekday traffic and weekend traffic, the idea being that if a station has busier days on the weekend then it's not a commuter station. With this in mind, we added up each station's daily traffic on weekdays and weekend days, took the median of each, and looked at how the two compared. Specifically, we were looking for stations which had more than twice the median daily weekday traffic when compared to the weekend. This eliminated about sixty five percent of the stations in our dataset.
 
 # Median daily traffic of a station
-When it comes down to it, canvassing is a numbers game. Filtering for stations that have high ridership -- whether those riders are rich or poor, commuters or tourists --  it's important to reach a lot of people. We found the median daily traffic of a station, looked at one standard deviation above the median, and gauged how many stations are excluded by increasing or decreasing this requirement.
+When it comes down to it, canvassing is a numbers game. Filtering for stations that have high ridership -- whether those riders are rich or poor, commuters or tourists --  it's important to reach a lot of people. We found the median daily traffic of a station, looked at one standard deviation above the median, and gauged how many stations are excluded by increasing or decreasing our median daily traffic criterion. We ended up choosing fifty thousand daily riders as our cutoff, which excludes eighty five percent of stations. 
+
+# Bringing it all together
+Finally it was time to find the unicorn stations that met all our demands. When we removed stations that didn't meet all three of our criteria, we ended up with these five stations:
+1. 72nd Street and 2nd Avenue
+2. 59th Street
+3. 5th Avenue and 53rd Street
+4. Borough Hall
+5. Jay Street Metrotec
+
+Three of our stations are in upper Manhattan, and two of them are in Brooklyn. 
