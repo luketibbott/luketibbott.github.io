@@ -10,6 +10,8 @@ Our first thoughts were to find the subway stations closest to tech companies wi
 * Whether a station is a commuter station or a tourist station
 * The median daily traffic of a station
 
+![_config.yml]({{ luketibbott.github.io }}/images/venn-diagram.png)
+
 # Classifying the wealth of a station
 After sifting through some lengthy JSON objects courtesy of the Google Maps API and utilizing our collective Google-fu to find NYC income data by zipcode, we had data on how many people fell in to each tax bracket within the zipcode of each station. The mathematician in me wanted to create a fancy "income score" wherein each tax bracket was weighted differently, but, being stretched for time, the pragmatist in me won out -- we went with a simple count of high income people in each zipcode. Next we had to decide how to use this metric to classify a station as "high income" or not. To do this we started at one standard deviation above the median number of high income people, and moved up and down from there to gauge the sensitivity of how many stations met or did not meet this criteria as we changed it. Our final income filter required that a station have eight thousand or more high income residents living nearby, which cuts out seventy nine percent of stations.
 
