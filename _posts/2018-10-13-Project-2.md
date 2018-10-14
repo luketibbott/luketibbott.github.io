@@ -13,6 +13,12 @@ Finally, I settled on predicting the price of desktop computers based on their c
 
 I used the Python library BeautifulSoup4 to scrape newegg.com. This wasn't a simple process. Newegg is not very scraper-friendly in the sense that they only allow you to make around 1,500 requests to their page each day. This meant I had to either change my IP address or wait a day to begin scraping again. Still, I persisted and after a few days (and late nights) I managed to get price and component data on 4,600 desktop computers. Ensuring each price corresponded to the correct components was a great exercise in database design for me. I initially didn't have a way to match up a price to the appropriate components, and immediately realized why it was so important to have a primary key join tables (or Pandas dataframes) on. I ended up reverse engineering the way newegg generates the price and component web page urls and used that as my primary key to join prices to components. This was the crux of the project for me -- seeing all my data in one table was incredibly relieving.
 
+![Price page](/images/newegg-prices.png)
+
+Prices were collected from a page similar to the one above
+
+![Component page](/images/Cropped-specifications.png)
+
 ## Cleaning
 
 The computer component data in its raw form is the dirtiest data I've ever worked with. There is no standard way to describe a processor on newegg.com. This meant I had to come up with ways to clean entries like "Intel i7 8700k 3.60 GHz 6-core processor" and "6700k 3.40 Ghz" as well as everything in between in the same column. Python's string methods didn't cut it here -- I needed the power of regular expressions. The data I scraped had many inconsistencies in which technical specifications were provided and which weren't. This meant that I had a total of 81 unique variables, but most of these variables only had a few hundred non-null values in them. I had to drop most of these variables from my analysis, as well as most of desktops I had data on. I ended up with 1700 computers after imputing values I was comfortable with.
@@ -22,6 +28,10 @@ The computer component data in its raw form is the dirtiest data I've ever worke
 Previous to this project, I had submitted an entry or fifteen to Kaggle's Titanic competition, but that was the sum total of my machine learning / regression experience. I didn't really understand the workflow of creating a model, and so spent a lot of time not knowing what I should do next or what was absolutely critical and what was "nice to have" in a model. With help from my instructors, I was able to make my way through the process of building a linear regression model I'm proud of. 
 
 I ended up using an ordinary least squares (OLS) model with 10-fold cross validation. I wanted to see if regularization was helpful for my model, so I tested Ridge, Lasso, and Elastic Net regressions, but didn't find any improvement over vanilla OLS. Because I wasn't using regularization, I was concerned my model would overfit my training data and perform horribly in the real world, so I kept a close eye on the difference between my training and testing mean squared error. My final model had a test-train difference in MSE of only about 300 -- 3600 MSE for training and 3882 MSE for testing. My R^2 was .75 for training data and .74 for testing data. 
+
+![results](/images/pred_actual_log.png)
+
+Predicted prices vs actual prices of desktop computers
 
 My model utilizes scikit-learn's StandardScaler function, which scales all my variables in to the same order of magnitude. For example, the number of cores in a processor might be 2 or 4, while the number of gigabytes in a hard drive might be 1,000 or 2,000. The OLS solver has a tough time when there's such a large difference in the distribution of variables, so scaling was helpful in my case. 
 
