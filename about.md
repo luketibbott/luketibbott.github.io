@@ -3,13 +3,10 @@ layout: page
 title: About
 permalink: /about/
 ---
-
-Some information about you!
-
 ### More Information
+I've lived in Seattle for the past 8 years. I recently decided to move towards data analytics, and am learning every day! 
 
-A place to include any other types of information that you'd like to include about yourself.
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+[luke.tibbott@gmail.com](mailto:luke.tibbott@gmail.com)
